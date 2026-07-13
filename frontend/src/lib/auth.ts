@@ -10,7 +10,8 @@ export const getToken = () => {
     return '';
   }
 
-  return localStorage.getItem(TOKEN_KEY) || '';
+  // JWTs are no longer included; always return empty string
+  return '';
 };
 
 export const getStoredUser = (): User | null => {
@@ -36,7 +37,8 @@ export const setSession = ({ token, user }: AuthSession) => {
     return;
   }
 
-  localStorage.setItem(TOKEN_KEY, token);
+  // Stop storing JWT token — only persist user data for client UI state
+  localStorage.removeItem(TOKEN_KEY);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 };
 

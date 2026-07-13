@@ -19,9 +19,9 @@ export default function SiteHeader() {
 
   useEffect(() => {
     const refreshAuthState = () => {
-      const token = getToken();
-      setIsAuthenticated(Boolean(token));
-      setCurrentUser(getStoredUser());
+      const user = getStoredUser();
+      setIsAuthenticated(Boolean(user));
+      setCurrentUser(user);
     };
 
     refreshAuthState();

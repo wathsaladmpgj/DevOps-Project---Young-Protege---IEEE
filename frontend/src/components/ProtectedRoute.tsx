@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getToken } from '../lib/auth';
+import { getStoredUser } from '../lib/auth';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -13,9 +13,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const token = getToken();
+    const user = getStoredUser();
 
-    if (!token) {
+    if (!user) {
       router.replace('/login');
       return;
     }

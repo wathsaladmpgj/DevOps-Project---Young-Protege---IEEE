@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const userModel = require('../models/userModel');
-const { signToken } = require('./tokenService');
+// stop issuing JWTs from the user service; token signing is disabled at the API level
 
 const buildUserPayload = (user) => ({
   id: user.id,
@@ -26,10 +26,8 @@ const registerUser = async ({ name, email, password }) => {
   });
 
   const createdUser = await userModel.findUserById(userId);
-  const token = signToken(createdUser);
 
   return {
-    token,
     user: buildUserPayload(createdUser)
   };
 };
@@ -51,10 +49,7 @@ const loginUser = async ({ email, password }) => {
     throw error;
   }
 
-  const token = signToken(user);
-
   return {
-    token,
     user: buildUserPayload(user)
   };
 };

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import ProtectedRoute from '../../components/ProtectedRoute';
-import api from '../../lib/api';
+import { getStoredUser } from '../../lib/auth';
 import type { User } from '../../lib/types';
 
 export default function ProfilePage() {
@@ -11,19 +11,14 @@ export default function ProfilePage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const response = await api.get('/auth/profile');
-        setUser(response.data.data);
-      } catch (requestError) {
-        const message = requestError instanceof Error ? requestError.message : 'Unable to load profile';
-        setError(message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void loadProfile();
+    // Use stored user (no JWT sent to server)
+    const stored = getStoredUser();
+    if (stored) {
+      setUser(stored);
+    } else {
+      setError('No user session found');
+    }
+    setLoading(false);
   }, []);
 
   return (
