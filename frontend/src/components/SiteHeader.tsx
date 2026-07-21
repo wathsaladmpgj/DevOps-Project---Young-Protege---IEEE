@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { clearSession, getStoredUser, getToken } from '../lib/auth';
+import { clearSession, getStoredUser } from '../lib/auth';
 import type { User } from '../lib/types';
 
 const navLinks = [

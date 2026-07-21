@@ -1,30 +1,14 @@
 import axios from 'axios';
-import { clearSession, getToken } from './auth';
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api'
+// No JWT auth anymore, so these are plain axios clients with no
+// Authorization header handling.
+
+// Talks directly to user-service (auth: register, login, profile)
+export const authApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_USER_SERVICE_URL || 'http://localhost:5001'
 });
 
-api.interceptors.request.use((config) => {
-  const token = getToken();
-
-  if (token) {
-    config.headers = config.headers || {};
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
+// Talks directly to task-service (tasks CRUD)
+export const taskApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_TASK_SERVICE_URL || 'http://localhost:5002'
 });
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      clearSession();
-    }
-
-    return Promise.reject(error);
-  }
-);
-
-export default api;

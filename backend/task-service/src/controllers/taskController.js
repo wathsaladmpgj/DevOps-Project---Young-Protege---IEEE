@@ -1,6 +1,10 @@
 const { validationResult } = require('express-validator');
 const taskService = require('../services/taskService');
 
+// No JWT auth anymore, so there's no authenticated user on the request.
+// Tasks are scoped to this fixed default user.
+const DEFAULT_USER_ID = 1;
+
 const handleValidation = (req, res) => {
   const errors = validationResult(req);
 
@@ -18,7 +22,7 @@ const handleValidation = (req, res) => {
 
 const listTasks = async (req, res, next) => {
   try {
-    const tasks = await taskService.getTasksForUser(req.user.id);
+    const tasks = await taskService.getTasksForUser(DEFAULT_USER_ID);
     res.status(200).json({
       success: true,
       data: tasks
@@ -34,7 +38,7 @@ const createTask = async (req, res, next) => {
       return;
     }
 
-    const task = await taskService.createTaskForUser(req.user.id, req.body);
+    const task = await taskService.createTaskForUser(DEFAULT_USER_ID, req.body);
     res.status(201).json({
       success: true,
       message: 'Task created successfully',
@@ -51,7 +55,7 @@ const updateTask = async (req, res, next) => {
       return;
     }
 
-    const task = await taskService.updateTaskForUser(req.user.id, req.params.id, req.body);
+    const task = await taskService.updateTaskForUser(DEFAULT_USER_ID, req.params.id, req.body);
     res.status(200).json({
       success: true,
       message: 'Task updated successfully',
@@ -64,7 +68,7 @@ const updateTask = async (req, res, next) => {
 
 const deleteTask = async (req, res, next) => {
   try {
-    const result = await taskService.deleteTaskForUser(req.user.id, req.params.id);
+    const result = await taskService.deleteTaskForUser(DEFAULT_USER_ID, req.params.id);
     res.status(200).json({
       success: true,
       message: 'Task deleted successfully',

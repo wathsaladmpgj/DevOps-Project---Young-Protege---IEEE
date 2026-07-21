@@ -1,18 +1,8 @@
 import type { AuthSession, User } from './types';
 
-const TOKEN_KEY = 'task_management_token';
 const USER_KEY = 'task_management_user';
 
 const isBrowser = () => typeof window !== 'undefined';
-
-export const getToken = () => {
-  if (!isBrowser()) {
-    return '';
-  }
-
-  // JWTs are no longer included; always return empty string
-  return '';
-};
 
 export const getStoredUser = (): User | null => {
   if (!isBrowser()) {
@@ -32,13 +22,11 @@ export const getStoredUser = (): User | null => {
   }
 };
 
-export const setSession = ({ token, user }: AuthSession) => {
+export const setSession = ({ user }: AuthSession) => {
   if (!isBrowser()) {
     return;
   }
 
-  // Stop storing JWT token — only persist user data for client UI state
-  localStorage.removeItem(TOKEN_KEY);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 };
 
@@ -47,6 +35,5 @@ export const clearSession = () => {
     return;
   }
 
-  localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
 };

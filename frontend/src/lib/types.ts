@@ -17,6 +17,5 @@ export type Task = {
 };
 
 export type AuthSession = {
-  token: string;
   user: User;
 };

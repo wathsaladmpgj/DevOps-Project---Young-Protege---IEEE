@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from 'react';
-import api from '../lib/api';
+import { taskApi } from '../lib/api';
 import type { Task, TaskStatus } from '../lib/types';
 
 const emptyForm = {
@@ -31,7 +31,7 @@ export default function TaskManager() {
     setError('');
 
     try {
-      const response = await api.get('/tasks');
+      const response = await taskApi.get('/tasks');
       setTasks(response.data.data || []);
     } catch (requestError) {
       const message = requestError instanceof Error ? requestError.message : 'Unable to load tasks';
@@ -75,9 +75,9 @@ export default function TaskManager() {
 
     try {
       if (selectedTaskId) {
-        await api.put(`/tasks/${selectedTaskId}`, payload);
+        await taskApi.put(`/tasks/${selectedTaskId}`, payload);
       } else {
-        await api.post('/tasks', payload);
+        await taskApi.post('/tasks', payload);
       }
 
       await loadTasks();
@@ -98,7 +98,7 @@ export default function TaskManager() {
     }
 
     try {
-      await api.delete(`/tasks/${taskId}`);
+      await taskApi.delete(`/tasks/${taskId}`);
       await loadTasks();
       if (selectedTaskId === taskId) {
         resetForm();

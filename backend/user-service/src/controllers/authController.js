@@ -1,6 +1,10 @@
 const { validationResult } = require('express-validator');
 const userService = require('../services/userService');
 
+// No JWT auth anymore, so there's no authenticated user on the request.
+// Profile lookups fall back to this fixed default user.
+const DEFAULT_USER_ID = 1;
+
 const handleValidation = (req, res) => {
   const errors = validationResult(req);
 
@@ -52,7 +56,7 @@ const login = async (req, res, next) => {
 
 const profile = async (req, res, next) => {
   try {
-    const profileData = await userService.getProfile(req.user.id);
+    const profileData = await userService.getProfile(DEFAULT_USER_ID);
     res.status(200).json({
       success: true,
       data: profileData

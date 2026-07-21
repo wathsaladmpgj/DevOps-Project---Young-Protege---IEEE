@@ -28,7 +28,7 @@ export default function ProfilePage() {
           <p className="text-sm font-medium uppercase tracking-[0.24em] text-cyan-200/80">Profile</p>
           <h1 className="mt-3 font-heading text-4xl font-semibold text-white sm:text-5xl">Account details</h1>
           <p className="mt-3 max-w-2xl text-slate-400">
-            View the account currently authenticated through the JWT session managed by the gateway and user service.
+            View the account currently signed in on this device, as tracked by the user service.
           </p>
         </section>
 

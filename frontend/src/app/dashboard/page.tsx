@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import StatCard from '../../components/StatCard';
-import api from '../../lib/api';
+import { authApi, taskApi } from '../../lib/api';
 import type { Task, User } from '../../lib/types';
 
 export default function DashboardPage() {
@@ -15,7 +15,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const loadDashboard = async () => {
       try {
-        const [profileResponse, tasksResponse] = await Promise.all([api.get('/auth/profile'), api.get('/tasks')]);
+        const [profileResponse, tasksResponse] = await Promise.all([authApi.get('/profile'), taskApi.get('/tasks')]);
         setUser(profileResponse.data.data);
         setTasks(tasksResponse.data.data || []);
       } catch (requestError) {

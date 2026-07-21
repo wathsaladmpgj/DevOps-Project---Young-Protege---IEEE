@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const userModel = require('../models/userModel');
-// stop issuing JWTs from the user service; token signing is disabled at the API level
+// No JWT auth; register/login just return the created/found user record
 
 const buildUserPayload = (user) => ({
   id: user.id,

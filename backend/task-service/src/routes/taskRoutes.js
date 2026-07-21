@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { body } = require('express-validator');
 const taskController = require('../controllers/taskController');
-const authenticateToken = require('../middleware/auth');
 
 const taskValidators = [
   body('title')
@@ -16,10 +15,9 @@ const taskValidators = [
     .withMessage('Status must be pending, in_progress, or completed')
 ];
 
-router.get('/tasks', authenticateToken, taskController.listTasks);
+router.get('/tasks', taskController.listTasks);
 router.post(
   '/tasks',
-  authenticateToken,
   [
     body('title').trim().notEmpty().withMessage('Title is required'),
     body('description').optional().trim(),
@@ -27,7 +25,7 @@ router.post(
   ],
   taskController.createTask
 );
-router.put('/tasks/:id', authenticateToken, taskValidators, taskController.updateTask);
-router.delete('/tasks/:id', authenticateToken, taskController.deleteTask);
+router.put('/tasks/:id', taskValidators, taskController.updateTask);
+router.delete('/tasks/:id', taskController.deleteTask);
 
 module.exports = router;

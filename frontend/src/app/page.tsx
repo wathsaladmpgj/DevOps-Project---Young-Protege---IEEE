@@ -3,11 +3,11 @@ import Link from 'next/link';
 const features = [
   {
     title: 'Microservice architecture',
-    description: 'A gateway, user service, and task service keep responsibilities separate and easy to scale.'
+    description: 'Independent user and task services keep responsibilities separate and easy to scale.'
   },
   {
     title: 'Secure authentication',
-    description: 'JWT-based authentication with bcrypt password hashing and route protection on the client and server.'
+    description: 'Password hashing with bcrypt on register and login, no token management required.'
   },
   {
     title: 'Task operations',
@@ -28,7 +28,7 @@ export default function HomePage() {
               Manage tasks with a clean microservice system.
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300">
-              TaskFlow combines a Next.js frontend, an Express API gateway, independent auth and task services, and a MySQL database into a practical production-style architecture.
+              TaskFlow combines a Next.js frontend, independent auth and task services, and a MySQL database into a practical production-style architecture.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -49,8 +49,8 @@ export default function HomePage() {
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">Gateway</p>
-                <p className="mt-2 text-xl font-semibold text-white">localhost:5000</p>
+                <p className="text-sm text-slate-400">Services</p>
+                <p className="mt-2 text-xl font-semibold text-white">5001 · 5002</p>
               </div>
               <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
                 <p className="text-sm text-slate-400">Database</p>

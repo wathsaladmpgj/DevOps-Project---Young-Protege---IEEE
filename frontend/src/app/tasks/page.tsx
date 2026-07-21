@@ -11,7 +11,7 @@ export default function TasksPage() {
           <p className="text-sm font-medium uppercase tracking-[0.24em] text-cyan-200/80">Tasks</p>
           <h1 className="mt-3 font-heading text-4xl font-semibold text-white sm:text-5xl">Manage your task lifecycle</h1>
           <p className="mt-3 max-w-2xl text-slate-400">
-            Create, edit, update status, and delete tasks from a single workspace that talks to the task service through the gateway.
+            Create, edit, update status, and delete tasks from a single workspace that talks directly to the task service.
           </p>
         </section>
 
